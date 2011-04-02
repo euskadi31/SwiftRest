@@ -31,7 +31,7 @@ try {
         '/classified/parts/:part_id' => 'Controller\\ClassifiedsParts',
         '/forums/:forum_id' => 'Controller\\Forums',
         '/forums/:forum_id/threads/:thread_id' => 'Controller\\ForumsThreads',
-        '/forums/:forum_id/threads/:thread_id/posts/:port_id' => 'Controller\\Forums\\Posts'
+        '/forums/:forum_id/threads/:thread_id/posts/:post_id' => 'Controller\\ForumsPosts'
     ));
 
     $server->handle();
