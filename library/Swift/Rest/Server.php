@@ -1,11 +1,10 @@
 <?php
 /**
  * @package     Swift
- * @author		Axel ETCHEVERRY <axel@etcheverry.biz>
+ * @author      Axel ETCHEVERRY <axel@etcheverry.biz>
  * @copyright   Copyright (c) 2011 Axel ETCHEVERRY (http://www.axel-etcheverry.com)
- * Displays		<a href="http://creativecommons.org/licenses/MIT/deed.fr">MIT</a>
- * @license		http://creativecommons.org/licenses/MIT/deed.fr	MIT
- * @version     $Id: Server.php,v1.0 28 mars 2011 12:14:49 euskadi31 $;
+ * Displays     <a href="http://creativecommons.org/licenses/MIT/deed.fr">MIT</a>
+ * @license     http://creativecommons.org/licenses/MIT/deed.fr    MIT
  */
 
 namespace Swift\Rest

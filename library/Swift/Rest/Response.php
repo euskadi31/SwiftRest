@@ -1,11 +1,10 @@
 <?php
 /**
  * @package     Swift
- * @author		Axel ETCHEVERRY <axel@etcheverry.biz>
+ * @author      Axel ETCHEVERRY <axel@etcheverry.biz>
  * @copyright   Copyright (c) 2011 Axel ETCHEVERRY (http://www.axel-etcheverry.com)
- * Displays		<a href="http://creativecommons.org/licenses/MIT/deed.fr">MIT</a>
- * @license		http://creativecommons.org/licenses/MIT/deed.fr	MIT
- * @version     $Id: Response.php,v1.0 28 mars 2011 12:27:44 euskadi31 $;
+ * Displays     <a href="http://creativecommons.org/licenses/MIT/deed.fr">MIT</a>
+ * @license     http://creativecommons.org/licenses/MIT/deed.fr    MIT
  */
 
 namespace Swift\Rest
@@ -16,14 +15,14 @@ namespace Swift\Rest
 
     use Swift\Rest\Response\Json,
         Swift\Rest\Response\Xml,
-		Swift\Rest\Response\Amf,
+        Swift\Rest\Response\Amf,
         Swift\Exception;
 
     class Response
     {
         /**
          * HTTP response code to use in headers
-		 *
+         *
          * @var int
          */
         protected $_httpResponseCode = 200;
@@ -36,7 +35,7 @@ namespace Swift\Rest
 
         /**
          * Response headers
-		 *
+         *
          * @var array
          */
         protected $_headers = array();
@@ -65,63 +64,63 @@ namespace Swift\Rest
          */
         protected $_charset = 'UTF-8';
 
-		/**
-	     *
-	     * @var array
-	     */
-	    public static $httpResponses = array(
-	        // Informational 1xx
-	        100 => 'Continue',
-	        101 => 'Switching Protocols',
+        /**
+         *
+         * @var array
+         */
+        public static $httpResponses = array(
+            // Informational 1xx
+            100 => 'Continue',
+            101 => 'Switching Protocols',
 
-	        // Success 2xx
-	        200 => 'OK',
-	        201 => 'Created',
-	        202 => 'Accepted',
-	        203 => 'Non-Authoritative Information',
-	        204 => 'No Content',
-	        205 => 'Reset Content',
-	        206 => 'Partial Content',
+            // Success 2xx
+            200 => 'OK',
+            201 => 'Created',
+            202 => 'Accepted',
+            203 => 'Non-Authoritative Information',
+            204 => 'No Content',
+            205 => 'Reset Content',
+            206 => 'Partial Content',
 
-	        // Redirection 3xx
-	        300 => 'Multiple Choices',
-	        301 => 'Moved Permanently',
-	        302 => 'Found',  // 1.1
-	        303 => 'See Other',
-	        304 => 'Not Modified',
-	        305 => 'Use Proxy',
-	        // 306 is deprecated but reserved
-	        307 => 'Temporary Redirect',
+            // Redirection 3xx
+            300 => 'Multiple Choices',
+            301 => 'Moved Permanently',
+            302 => 'Found',  // 1.1
+            303 => 'See Other',
+            304 => 'Not Modified',
+            305 => 'Use Proxy',
+            // 306 is deprecated but reserved
+            307 => 'Temporary Redirect',
 
-	        // Client Error 4xx
-	        400 => 'Bad Request',
-	        401 => 'Unauthorized',
-	        402 => 'Payment Required',
-	        403 => 'Forbidden',
-	        404 => 'Not Found',
-	        405 => 'Method Not Allowed',
-	        406 => 'Not Acceptable',
-	        407 => 'Proxy Authentication Required',
-	        408 => 'Request Timeout',
-	        409 => 'Conflict',
-	        410 => 'Gone',
-	        411 => 'Length Required',
-	        412 => 'Precondition Failed',
-	        413 => 'Request Entity Too Large',
-	        414 => 'Request-URI Too Long',
-	        415 => 'Unsupported Media Type',
-	        416 => 'Requested Range Not Satisfiable',
-	        417 => 'Expectation Failed',
+            // Client Error 4xx
+            400 => 'Bad Request',
+            401 => 'Unauthorized',
+            402 => 'Payment Required',
+            403 => 'Forbidden',
+            404 => 'Not Found',
+            405 => 'Method Not Allowed',
+            406 => 'Not Acceptable',
+            407 => 'Proxy Authentication Required',
+            408 => 'Request Timeout',
+            409 => 'Conflict',
+            410 => 'Gone',
+            411 => 'Length Required',
+            412 => 'Precondition Failed',
+            413 => 'Request Entity Too Large',
+            414 => 'Request-URI Too Long',
+            415 => 'Unsupported Media Type',
+            416 => 'Requested Range Not Satisfiable',
+            417 => 'Expectation Failed',
 
-	        // Server Error 5xx
-	        500 => 'Internal Server Error',
-	        501 => 'Not Implemented',
-	        502 => 'Bad Gateway',
-	        503 => 'Service Unavailable',
-	        504 => 'Gateway Timeout',
-	        505 => 'HTTP Version Not Supported',
-	        509 => 'Bandwidth Limit Exceeded'
-	    );
+            // Server Error 5xx
+            500 => 'Internal Server Error',
+            501 => 'Not Implemented',
+            502 => 'Bad Gateway',
+            503 => 'Service Unavailable',
+            504 => 'Gateway Timeout',
+            505 => 'HTTP Version Not Supported',
+            509 => 'Bandwidth Limit Exceeded'
+        );
 
         /**
          *
@@ -305,34 +304,34 @@ namespace Swift\Rest
          */
         public function render(array $data)
         {
-			switch($this->getRequest()->getFormat()) {
-				case Request::FORMAT_XML:
-					$this->setHeader(
-	                    'Content-Type',
-	                    'application/xml; charset=' . $this->_charset,
-	                    true
-	                );
-	                $response = new Xml($data);
-					break;
-				case Request::FORMAT_JSON:
-					$this->setHeader(
-	                    'Content-Type',
-	                    'application/json; charset=' . $this->_charset,
-	                    true
-	                );
-	                $response = new Json($data);
-					break;
-				case Request::FORMAT_AMF:
-					$this->setHeader(
-	                    'Content-Type',
-	                    'application/x-amf; charset=' . $this->_charset,
-	                    true
-	                );
-					$response = new Amf($data);
-					break;
-			}
+            switch($this->getRequest()->getFormat()) {
+                case Request::FORMAT_XML:
+                    $this->setHeader(
+                        'Content-Type',
+                        'application/xml; charset=' . $this->_charset,
+                        true
+                    );
+                    $response = new Xml($data);
+                    break;
+                case Request::FORMAT_JSON:
+                    $this->setHeader(
+                        'Content-Type',
+                        'application/json; charset=' . $this->_charset,
+                        true
+                    );
+                    $response = new Json($data);
+                    break;
+                case Request::FORMAT_AMF:
+                    $this->setHeader(
+                        'Content-Type',
+                        'application/x-amf; charset=' . $this->_charset,
+                        true
+                    );
+                    $response = new Amf($data);
+                    break;
+            }
             
-			return $response;
+            return $response;
         }
 
         /**
@@ -373,10 +372,10 @@ namespace Swift\Rest
             foreach ($this->_headers as $header) {
                 if (!$httpCodeSent && $this->_httpResponseCode) {
                     header(
-						$header['name'] . ': ' . $header['value'], 
-						$header['replace'], 
-						$this->_httpResponseCode
-					);
+                        $header['name'] . ': ' . $header['value'], 
+                        $header['replace'], 
+                        $this->_httpResponseCode
+                    );
                     $httpCodeSent = true;
                 } else {
                     header($header['name'] . ': ' . $header['value'], $header['replace']);
@@ -385,10 +384,10 @@ namespace Swift\Rest
 
             if (!$httpCodeSent) {
                 header(
-					'HTTP/1.1 ' . $this->_httpResponseCode . ' ' . self::$httpResponses[$this->_httpResponseCode], 
-					true, 
-					$this->_httpResponseCode
-				);
+                    'HTTP/1.1 ' . $this->_httpResponseCode . ' ' . self::$httpResponses[$this->_httpResponseCode], 
+                    true, 
+                    $this->_httpResponseCode
+                );
                 $httpCodeSent = true;
             }
 

@@ -1,11 +1,10 @@
 <?php
 /**
  * @package     Swift
- * @author		Axel ETCHEVERRY <axel@etcheverry.biz>
+ * @author      Axel ETCHEVERRY <axel@etcheverry.biz>
  * @copyright   Copyright (c) 2011 Axel ETCHEVERRY (http://www.axel-etcheverry.com)
- * Displays		<a href="http://creativecommons.org/licenses/MIT/deed.fr">MIT</a>
- * @license		http://creativecommons.org/licenses/MIT/deed.fr	MIT
- * @version     $Id: News.php,v1.0 29 mars 2011 01:12:09 euskadi31 $;
+ * Displays     <a href="http://creativecommons.org/licenses/MIT/deed.fr">MIT</a>
+ * @license     http://creativecommons.org/licenses/MIT/deed.fr    MIT
  */
 
 namespace Controller
@@ -56,8 +55,8 @@ namespace Controller
          */
         public function post()
         {
-			$this->getResponse()->setHttpResponseCode(201);
-			return array('post' => $this->_getAllParams());
+            $this->getResponse()->setHttpResponseCode(201);
+            return array('post' => $this->_getAllParams());
         }
 
         /**
@@ -67,7 +66,7 @@ namespace Controller
          */
         public function put()
         {
-			return array('put' => $this->_getAllParams());
+            return array('put' => $this->_getAllParams());
         }
 
         /**
@@ -77,7 +76,7 @@ namespace Controller
          */
         public function delete()
         {
-			
+            
         }
 
         /**

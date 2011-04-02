@@ -1,11 +1,10 @@
 <?php
 /**
- * @package 	Swift
- * @author		Axel ETCHEVERRY <axel@etcheverry.biz>
+ * @package     Swift
+ * @author      Axel ETCHEVERRY <axel@etcheverry.biz>
  * @copyright   Copyright (c) 2011 Axel ETCHEVERRY (http://www.axel-etcheverry.com)
- * Displays		<a href="http://creativecommons.org/licenses/MIT/deed.fr">MIT</a>
- * @license		http://creativecommons.org/licenses/MIT/deed.fr	MIT
- * @version		$Id: bootstrap.php,v1.0 28 mars 2011 11:54:55 euskadi31 $;
+ * Displays     <a href="http://creativecommons.org/licenses/MIT/deed.fr">MIT</a>
+ * @license     http://creativecommons.org/licenses/MIT/deed.fr    MIT
  */
 
 require_once __DIR__ . '/../library/Swift/Loader/ClassLoader.php';
