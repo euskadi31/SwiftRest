@@ -1,8 +1,10 @@
 <?php
 /**
- * @package
+ * @package		Swift
+ * @author		Axel ETCHEVERRY <axel@etcheverry.biz>
  * @copyright   Copyright (c) 2011 Axel ETCHEVERRY (http://www.axel-etcheverry.com)
- * @license
+ * Displays		<a href="http://creativecommons.org/licenses/MIT/deed.fr">MIT</a>
+ * @license		http://creativecommons.org/licenses/MIT/deed.fr	MIT
  * @version     $Id: ClassLoader.php,v1.0 31 mars 2011 02:38:24 euskadi31 $;
  */
 

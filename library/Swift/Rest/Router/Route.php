@@ -1,8 +1,10 @@
 <?php
 /**
  * @package     Swift
+ * @author		Axel ETCHEVERRY <axel@etcheverry.biz>
  * @copyright   Copyright (c) 2011 Axel ETCHEVERRY (http://www.axel-etcheverry.com)
- * @license     GPL
+ * Displays		<a href="http://creativecommons.org/licenses/MIT/deed.fr">MIT</a>
+ * @license		http://creativecommons.org/licenses/MIT/deed.fr	MIT
  * @version     $Id: Route.php,v1.0 31 mars 2011 01:05:46 euskadi31 $;
  */
 
@@ -68,7 +70,7 @@ namespace Swift\Rest\Router
             $lastUrlRegex = preg_replace_callback('@:[\w]+$@', function($matches) use ($regexs) {
                 $key = str_replace(':', '', $matches[0]);
 
-                if (array_key_exists($key, $regexs) {
+                if (array_key_exists($key, $regexs)) {
                     return '(?P<' . $key . '>' . $regexs[$key] . '|*)';
                 } else {
                     return '(?P<' . $key . '>[a-zA-Z0-9_\+\-%]*)';

@@ -1,8 +1,10 @@
 <?php
 /**
  * @package     Swift
+ * @author		Axel ETCHEVERRY <axel@etcheverry.biz>
  * @copyright   Copyright (c) 2011 Axel ETCHEVERRY (http://www.axel-etcheverry.com)
- * @license     GPL
+ * Displays		<a href="http://creativecommons.org/licenses/MIT/deed.fr">MIT</a>
+ * @license		http://creativecommons.org/licenses/MIT/deed.fr	MIT
  * @version     $Id: Request.php,v1.0 28 mars 2011 12:56:28 euskadi31 $;
  */
 
@@ -14,9 +16,20 @@ namespace Swift\Rest
     {
         const FORMAT_JSON   = 'json';
         const FORMAT_XML    = 'xml';
+		const FORMAT_AMF	= 'amf';
+
+		/**
+		 * @var array
+		 */
+		public static $formats = array(
+			self::FORMAT_JSON,
+			self::FORMAT_XML,
+			self::FORMAT_AMF
+		);
 
         /**
          * Request headers
+		 *
          * @var array
          */
         protected $_headers = array();
@@ -35,12 +48,8 @@ namespace Swift\Rest
         protected $_uri;
 
         /**
-         * @var string
-         */
-        protected $_method;
-
-        /**
          * Request params
+		 *
          * @var array
          */
         protected $_params = array();
@@ -60,13 +69,17 @@ namespace Swift\Rest
 
             return self::$_instance;
         }
-
+		
+		/**
+		 * Init Request
+		 * 
+		 * @return Swift\Rest\Request
+		 */
         protected function __construct()
         {
             // ici parce header and request
 
             $this->_uri = $_SERVER['REQUEST_URI'];
-            $this->_method = $_SERVER['REQUEST_METHOD'];
 
             $pos = strpos($this->_uri, '?');
 
@@ -84,13 +97,19 @@ namespace Swift\Rest
                 $this->setParams($_GET);
             }
 
-            if(isset($_POST)) {
-                $this->setParams($_POST);
-            }
+			$method = $this->getMethod();
+			
+			if ($method == 'PUT' || $method == 'POST') {
+				$data = file_get_contents('php://input');
+				parse_str($data, $data);
+				$this->setParams($data);
+				unset($data);
+			}
         }
 
         /**
          * Add a new param
+		 *
          * @param string $name
          * @param string|int $value
          * @return Swift\Rest\Request
@@ -103,6 +122,7 @@ namespace Swift\Rest
 
         /**
          * Set params
+		 *
          * @param string $params
          * @return Swift\Rest\Request
          */
@@ -119,6 +139,7 @@ namespace Swift\Rest
 
         /**
          * Get request params
+		 *
          * @return array
          */
         public function getParams()
@@ -128,6 +149,7 @@ namespace Swift\Rest
 
         /**
          * Get request param by name
+		 *
          * @param string $name
          * @return string|bool
          */
@@ -142,15 +164,32 @@ namespace Swift\Rest
 
         /**
          * Get http method
+		 *
          * @return string
          */
         public function getMethod()
         {
-            return $this->_method;
+			$method = $_SERVER['REQUEST_METHOD'];
+			$override = null;
+			
+			if (isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'])) {
+				$override = $_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'];
+			} elseif (isset($_GET['method'])) {
+				$override = $_GET['method'];
+			}
+			
+			if ($method == "POST" && strtoupper($override) == "PUT") {
+				$method = "PUT";
+			} elseif ($method == "POST" && strtoupper($override) == "DELETE") {
+				$method = "DELETE";
+			}
+			
+			return $method;
         }
 
         /**
          * Get request headers
+		 *
          * @return array
          */
         public function getHeaders()
@@ -160,6 +199,7 @@ namespace Swift\Rest
 
         /**
          * Get request header by name
+		 *
          * @param string $name
          * @return string|null
          */
@@ -174,6 +214,7 @@ namespace Swift\Rest
 
         /**
          * Get request uri
+		 *
          * @return string
          */
         public function getUri()
@@ -182,25 +223,22 @@ namespace Swift\Rest
         }
 
         /**
-         * Get format
+         * Get accept format
+		 *
+		 * @return string 
          */
         public function getFormat()
         {
-            $accept = $this->getHeader('accept');
-
-            if(empty($accept)) {
-                return self::FORMAT_JSON;
-            } else {
-                switch($accept) {
-                    case 'application/xml':
-                        return self::FORMAT_XML;
-                        break;
-                    case 'text/json':
-                    case 'application/json':
-                        return self::FORMAT_JSON;
-                        break;
-                }
-            }
+			$format = self::FORMAT_JSON;
+			$accept = explode(',', $_SERVER['HTTP_ACCEPT']);
+			
+			if (in_array(self::FORMAT_JSON, $accept)) {
+				$format = self::FORMAT_JSON;
+			} elseif (in_array(self::FORMAT_XML, $accept)) {
+				$format = self::FORMAT_XML;
+			}
+			
+			return $format;
         }
     }
 }

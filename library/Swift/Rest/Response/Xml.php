@@ -1,8 +1,10 @@
 <?php
 /**
- * @package
+ * @package		Swift
+ * @author		Axel ETCHEVERRY <axel@etcheverry.biz>
  * @copyright   Copyright (c) 2011 Axel ETCHEVERRY (http://www.axel-etcheverry.com)
- * @license
+ * Displays		<a href="http://creativecommons.org/licenses/MIT/deed.fr">MIT</a>
+ * @license		http://creativecommons.org/licenses/MIT/deed.fr	MIT
  * @version     $Id: Xml.php,v1.0 31 mars 2011 03:14:13 euskadi31 $;
  */
 
@@ -22,6 +24,7 @@ namespace Swift\Rest\Response
 
         /**
          * Init xml response
+		 *
          * @param array $data
          */
         public function __construct(array $data)
@@ -31,6 +34,7 @@ namespace Swift\Rest\Response
 
         /**
          * recurcif method
+		 *
          * @param array $array
          * @return void
          */
@@ -62,6 +66,7 @@ namespace Swift\Rest\Response
 
         /**
          * format tag name
+		 *
          * @param string $tag
          * @return $string
          */
