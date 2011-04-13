@@ -115,6 +115,33 @@ namespace Swift\Rest
         }
 
         /**
+         * Get allowed method
+         * @return string
+         */
+        protected function _getAllowMethod()
+        {
+            $allow = array();
+            
+            if(in_array('get', $this->_classMethods)) {
+                $allow[] = 'GET';
+            }
+            
+            if(in_array('post', $this->_classMethods)) {
+                $allow[] = 'POST';
+            }
+            
+            if(in_array('put', $this->_classMethods)) {
+                $allow[] = 'PUT';
+            }
+            
+            if(in_array('delete', $this->_classMethods)) {
+                $allow[] = 'DELETE';
+            }
+            
+            return (string)implode(', ', $allow);
+        }
+
+        /**
          * Dispatch the requested action
          *
          * @param string $action Method name of action
@@ -129,6 +156,8 @@ namespace Swift\Rest
             if (null === $this->_classMethods) {
                 $this->_classMethods = get_class_methods($this);
             }
+
+            $this->_response->setHeader('Allow', $this->_getAllowMethod(), true);
 
             if(in_array($action, $this->_classMethods)) {
                 $this->_response->setData((array)$this->$action());
